@@ -259,6 +259,14 @@ class PlaylistTransfer:
                 failed_tracks.append(f"{track_name} by {artist_name}: Ошибка поиска ({e})")
                 print(RED + f"✗ Ошибка при поиске '{track_name}': {e}" + RESET)
 
+        print(YELLOW + "Завершение текущего сеанса YTMusic..." + RESET)
+        self.ytmusic = None  # Сбрасываем текущий объект¶
+        try:
+            self.ytmusic = YTMusic('headers_auth.json')
+            print(GREEN + "Новый сеанс YTMusic успешно инициализирован" + RESET)
+        except Exception as e:
+            print(RED + f"Ошибка при инициализации нового сеанса YTMusic: {e}" + RESET)
+
 
         if track_ids_to_add:
             print(f"\nДобавление {len(track_ids_to_add)} треков в плейлист...")
@@ -286,7 +294,7 @@ class PlaylistTransfer:
         print(f"Ошибки: {len([f for f in failed_tracks if 'Ошибка' in f])}")
 
     def save_report(self, playlist_name, successful_tracks, failed_tracks):
-        report_file = f"/transfer_report_{playlist_name}.txt"
+        report_file = f"transfer_report_{playlist_name}.txt"
 
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(f"Отчет о переносе плейлиста: {playlist_name}\n")
