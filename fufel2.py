@@ -43,7 +43,6 @@ class PlaylistTransfer:
         if not text:
             return ""
 
-        # Удаляем лишние символы и приводим к нижнему регистру
         text = re.sub(r'\s*\([^)]*\)', '', text)
         text = re.sub(r'\s*\[[^\]]*\]', '', text)
         text = re.sub(r'\s*-\s*remaster(ed)?.*', '', text, flags=re.IGNORECASE)
@@ -260,7 +259,7 @@ class PlaylistTransfer:
                 print(RED + f"✗ Ошибка при поиске '{track_name}': {e}" + RESET)
 
         print(YELLOW + "Завершение текущего сеанса YTMusic..." + RESET)
-        self.ytmusic = None  # Сбрасываем текущий объект¶
+        self.ytmusic = None
         try:
             self.ytmusic = YTMusic('headers_auth.json')
             print(GREEN + "Новый сеанс YTMusic успешно инициализирован" + RESET)
